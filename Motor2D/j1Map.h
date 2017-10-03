@@ -12,20 +12,21 @@ struct MapLayer
 {
 	p2SString name = nullptr;
 	int width = 0, height = 0;
-	p2List<unsigned int> gid;
+	p2List<uint> gid;
 
 	//!! TODO 6: Short function to get the value of x,y
 	inline uint Get(int x, int y) const
 	{
-		if (x < 0 || y < 0 || (x*width) + y >gid.count())
+		
+		if ((x < 0 || y < 0)|| (x*width+y) >gid.count())
 		{
 			return 0;
 		}
 		else
-		{
-			return (x*width) + y;
+		{	
+			 return gid[(x*width) + y];
 		}
-
+	
 	}
 
 	~MapLayer() {gid.clear(); }
@@ -73,6 +74,7 @@ struct MapData
 	MapTypes			type;
 	p2List<TileSet*>	tilesets;
 	p2List<MapLayer*>	layermap;
+
 	//!! TODO 2: Add a list/array of layers to the map!
 };
 

@@ -42,7 +42,8 @@ void j1Map::Draw()
 			{
 				tileID = 0;
 			}
-			else { tileID = layer->Get(x, y); }
+			else { tileID = layer->Get(x, y); 
+			}
 
 			if (tileID > 0)
 			{
@@ -148,12 +149,13 @@ bool j1Map::Load(const char* file_name)
 	// Load layer info ----------------------------------------------
 	for (pugi::xml_node layerset = map_file.child("map").child("layer"); layerset; layerset = layerset.next_sibling("layer"))
 	{
-		MapLayer* Linfo = new MapLayer();
+		layer  = new MapLayer();
 		if (ret == true)
 		{
-			LoadLayer(layerset, Linfo);
+			LoadLayer(layerset, layer);
 		}
-		data.layermap.add(Linfo);
+		data.layermap.add(layer);
+	
 	}
 
 	if(ret == true)
@@ -340,13 +342,13 @@ bool j1Map::LoadLayer(pugi::xml_node& node, MapLayer* layer)
 SDL_Rect TileSet::GetTileRect(int id)const
 {
 	
-	int relativeID = id - firstgid;
 	SDL_Rect rect;
+	int relativeID = id; //- firstgid;
 	rect.w = tile_width;
 	rect.h = tile_height;
-	rect.x = margin + ((rect.w + spacing)*(relativeID/ num_tiles_width));
-	rect.y = margin + ((rect.y + spacing)*(relativeID/ num_tiles_height));
-
+	rect.x = margin + ((rect.w + spacing)*(relativeID / num_tiles_width));
+	rect.y = margin + ((rect.h + spacing)*(relativeID / num_tiles_height));
+	
 	return rect;
 
 }
