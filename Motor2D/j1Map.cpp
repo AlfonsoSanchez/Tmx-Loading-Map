@@ -32,7 +32,25 @@ void j1Map::Draw()
 		return;
 
 	// TODO 5: Prepare the loop to draw all tilesets + Blit
+	for (int x = 0; x < data.width; x++)
+	{
+		for (int y = 0; y < data.height; y++)
+		{
+			int tileID = 0;
 
+			if (x > data.width || y > data.height)
+			{
+				tileID = 0;
+			}
+			else { tileID = layer->Get(x, y); }
+
+			if (tileID > 0)
+			{
+
+			}
+			//App->render->Blit();
+		}
+	}
 		// TODO 9: Complete the draw function
 
 }
@@ -75,7 +93,7 @@ bool j1Map::CleanUp()
 	}
 	data.tilesets.clear();
 
-	// TODO 2: clean up all layer data
+	//!!TODO 2: clean up all layer data
 	// Remove all layers
 	p2List_item<MapLayer*>* litem;
 	litem = data.layermap.start;
@@ -132,7 +150,7 @@ bool j1Map::Load(const char* file_name)
 		data.tilesets.add(set);
 	}
 
-	// TODO 4: Iterate all layers and load each of them
+	//!! TODO 4: Iterate all layers and load each of them
 	// Load layer info ----------------------------------------------
 	for (pugi::xml_node layerset = map_file.child("map").child("layer"); layerset; layerset = layerset.next_sibling("layer"))
 	{
@@ -161,7 +179,7 @@ bool j1Map::Load(const char* file_name)
 			item = item->next;
 		}
 
-		// TODO 4: Add info here about your loaded layers
+		//!! TODO 4: Add info here about your loaded layers
 		// Adapt this vcode with your own variables
 		
 		p2List_item<MapLayer*>* item_layer = data.layermap.start;
@@ -307,7 +325,7 @@ bool j1Map::LoadTilesetImage(pugi::xml_node& tileset_node, TileSet* set)
 	return ret;
 }
 
-// TODO 3: Create the definition for a function that loads a single layer
+// !!TODO 3: Create the definition for a function that loads a single layer
 bool j1Map::LoadLayer(pugi::xml_node& node, MapLayer* layer)
 {
 	
