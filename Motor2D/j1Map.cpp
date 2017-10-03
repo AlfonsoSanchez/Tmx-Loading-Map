@@ -46,9 +46,12 @@ void j1Map::Draw()
 
 			if (tileID > 0)
 			{
-
+				iPoint position = MapToWorld(x, y);
+				SDL_Rect rect = tile->GetTileRect(tileID);
+				
+				App->render->Blit(tile->texture,position.x,position.y,&rect);
 			}
-			//App->render->Blit();
+			
 		}
 	}
 		// TODO 9: Complete the draw function
@@ -66,16 +69,7 @@ iPoint j1Map::MapToWorld(int x, int y) const
 	return ret;
 }
 
-SDL_Rect TileSet::GetTileRect(int id) const
-{
-	int relative_id = id - firstgid;
-	SDL_Rect rect;
-	rect.w = tile_width;
-	rect.h = tile_height;
-	rect.x = margin + ((rect.w + spacing) * (relative_id % num_tiles_width));
-	rect.y = margin + ((rect.h + spacing) * (relative_id / num_tiles_width));
-	return rect;
-}
+
 
 // Called before quitting
 bool j1Map::CleanUp()
@@ -342,3 +336,18 @@ bool j1Map::LoadLayer(pugi::xml_node& node, MapLayer* layer)
 		}
 		return true;
 }
+
+SDL_Rect TileSet::GetTileRect(int id)const
+{
+	
+	int relativeID = id - firstgid;
+	SDL_Rect rect;
+	rect.w = tile_width;
+	rect.h = tile_height;
+	rect.x = margin + ((rect.w + spacing)*(relativeID/ num_tiles_width));
+	rect.y = margin + ((rect.y + spacing)*(relativeID/ num_tiles_height));
+
+	return rect;
+
+}
+
