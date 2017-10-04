@@ -30,7 +30,7 @@ void j1Map::Draw()
 {
 	if(map_loaded == false)
 		return;
-
+	p2List_item<MapLayer*>* item_layer = data.layermap.start;
 	// TODO 5: Prepare the loop to draw all tilesets + Blit
 	for (int x = 0; x < data.width; x++)
 	{
@@ -343,7 +343,7 @@ SDL_Rect TileSet::GetTileRect(int id)const
 {
 	
 	SDL_Rect rect;
-	int relativeID = id; //- firstgid;
+	int relativeID = id; - firstgid;
 	rect.w = tile_width;
 	rect.h = tile_height;
 	rect.x = margin + ((rect.w + spacing)*(relativeID / num_tiles_width));
