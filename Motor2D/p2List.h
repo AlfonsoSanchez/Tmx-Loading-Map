@@ -3,7 +3,6 @@
 
 #include "p2Defs.h"
 #include <assert.h>
-
 /**
 * Contains items from double linked list
 */

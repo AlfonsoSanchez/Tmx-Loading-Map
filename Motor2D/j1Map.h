@@ -6,7 +6,7 @@
 #include "p2Point.h"
 #include "j1Module.h"
 
-// !!TODO 1: Create a struct for the map layer
+// TODO 1: Create a struct for the map layer
 // ----------------------------------------------------
 struct MapLayer
 {
@@ -18,27 +18,25 @@ struct MapLayer
 	inline uint Get(int x, int y) const
 	{
 		
-		if ((x < 0 || y < 0)|| (x*width+y) >gid.count())
+		if ((x < 0 || y < 0) || (y*width + x) >=gid.count())
 		{
 			return 0;
 		}
 		else
-		{	
-			 return gid[(x*width) + y];
+		{
+			return gid[(y*width) + x];
 		}
-	
+
 	}
 
-	~MapLayer() {gid.clear(); }
+	~MapLayer() { gid.clear(); }
 };
-	
-
 
 
 // ----------------------------------------------------
 struct TileSet
 {
-	// !!TODO 7: Create a method that receives a tile id and returns it's Rectfind the Rect associated with a specific tile id
+	// TODO 7: Create a method that receives a tile id and returns it's Rectfind the Rect associated with a specific tile id
 	SDL_Rect GetTileRect(int id) const;
 
 	p2SString			name;
@@ -73,9 +71,8 @@ struct MapData
 	SDL_Color			background_color;
 	MapTypes			type;
 	p2List<TileSet*>	tilesets;
+	// TODO 2: Add a list/array of layers to the map!
 	p2List<MapLayer*>	layermap;
-
-	//!! TODO 2: Add a list/array of layers to the map!
 };
 
 // ----------------------------------------------------
@@ -100,22 +97,20 @@ public:
 	// Load new map
 	bool Load(const char* path);
 
-	// !!TODO 8: Create a method that translates x,y coordinates from map positions to world positions
+	// TODO 8: Create a method that translates x,y coordinates from map positions to world positions
 	iPoint MapToWorld(int x, int y) const;
-
 
 private:
 
 	bool LoadMap();
 	bool LoadTilesetDetails(pugi::xml_node& tileset_node, TileSet* set);
 	bool LoadTilesetImage(pugi::xml_node& tileset_node, TileSet* set);
-	// !!TODO 3: Create a method that loads a single laye
-	bool LoadLayer(pugi::xml_node& node, MapLayer* layer);
+	// TODO 3: Create a method that loads a single laye
+	 bool LoadLayer(pugi::xml_node& node, MapLayer* layer);
 
 public:
-	TileSet* tile;
+
 	MapData data;
-	MapLayer* layer;
 
 private:
 
