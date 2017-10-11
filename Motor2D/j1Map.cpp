@@ -67,11 +67,32 @@ void j1Map::Draw()
 iPoint j1Map::MapToWorld(int x, int y) const
 {
 	iPoint ret;
+	if (data.type == MAPTYPE_ORTHOGONAL)
+	{
+		ret.x = x * data.tile_width;
+		ret.y = y * data.tile_height*0.5;
+	}
+	else if (data.type == MAPTYPE_ISOMETRIC)
+	{
+		ret.x = (x - y) * (data.tile_width * 0.5f);
+		ret.y = (x + y) * (data.tile_height * 0.5f);
+	}
+	return ret;
+}
 
-	ret.x = x * data.tile_width;
-	ret.y = y * data.tile_height;
+iPoint j1Map::WorldToMap(int x, int y) const 
+{
+	iPoint ret;
+	
+	/*ret.x = x / data.tile_width;
+	ret.y = y / data.tile_height;*/
+	//Not finish
+
+	ret.x =  x / data.tile_width + y/data.tile_width;
+	ret.y =  y / data.tile_height - x/data.tile_height;
 
 	return ret;
+
 }
 
 SDL_Rect TileSet::GetTileRect(int id) const
